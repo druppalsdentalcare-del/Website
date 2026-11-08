@@ -9,7 +9,7 @@ module.exports = {
   name: "Dr. Uppal's Dental Hub & Implant Center",
   shortName: "Dr. Uppal's",
   tagline: "Dental · Implant · Smile",
-  siteUrl: "https://www.druppalsdentalcare.com", // TODO: your live domain (no trailing slash)
+  siteUrl: "https://druppalsdentalcare-del.github.io/Website", // TODO: change to your own domain once you have one (no trailing slash)
 
   doctor: {
     name: "Dr. Uppal",                 // TODO: full name, e.g. "Dr. Firstname Uppal"

@@ -1,31 +1,28 @@
-# Dr. Uppal's Dental Care — Website
+# Dr. Uppal's Dental Hub & Implant Center — Website
 
-A fast, SEO- and GEO-optimised static website for the clinic: 23 pages, no frameworks, no tracking, with animated custom illustrations for every procedure.
+A fast static website built on the clinic's brand guide, with SEO and GEO (AI-search) optimisation and animation throughout.
 
-## What's included
+**Brand:** deep burgundy `#6B1022`, antique gold `#C9A24B` (accents only), dark gold `#8A6416` (small gold text), ivory `#F6EFE3`, charcoal `#3A3633` on white. Playfair Display SemiBold for names and headings, Lato for body text.
+
+## Pages
 | Page | Path |
 |---|---|
-| Home (hero, treatments, why us, doctor, whitening before/after slider, visit steps, FAQs, map) | `/` |
-| About (doctor, values, sterilisation protocol, technology) | `/about/` |
-| Treatments hub with category filter | `/treatments/` |
-| 16 treatment guides (overview, signs, step-by-step procedure, benefits, aftercare, FAQs) | `/treatments/<slug>/` |
-| Searchable FAQ centre (~90 answers) | `/faq/` |
-| Book appointment (sends the request via WhatsApp or email) | `/book-appointment/` |
-| Contact & directions | `/contact/` |
+| Home: logo + shortcut buttons → intro → clinic photos → why patients choose us → location, map, call now & booking | `/` |
+| About | `/about/` |
+| Treatments (16 guides, each with procedure, aftercare & FAQs) | `/treatments/` |
+| Patient guide | `/patient-guide/` |
+| FAQs (searchable) | `/faq/` |
+| Gallery (with lightbox) | `/gallery/` |
+| Contact us | `/contact/` |
+| Book a consultation (sends via WhatsApp or email) | `/book-consultation/` |
 
-**SEO:** unique titles/descriptions, canonical URLs, Open Graph/Twitter cards, `sitemap.xml`, `robots.txt`, and schema.org JSON-LD: `Dentist` (LocalBusiness), `Person`, `MedicalWebPage` + `MedicalProcedure`, `FAQPage`, `BreadcrumbList`.
-**GEO (AI answer engines):** answer-first summaries and "key facts" on every treatment page, "medically reviewed by" with date, `llms.txt`, and AI crawlers explicitly allowed in `robots.txt`.
+A floating **Book a consultation** button stays on screen on every page.
 
-## ⚠️ Before going live — fill in your details
-Edit **`src/config.js`** (every `// TODO`): domain, doctor's full name, qualifications and registration number, phone, WhatsApp, address, city, map coordinates, Google Maps embed and reviews link, opening hours, stats and social links. Then rebuild.
-
-The city name is used in page titles and headings, so filling it in matters a lot for local search.
-
-## Editing content
-- Treatments & their FAQs: `src/treatments.js`
-- General FAQs: `src/faqs.js`
-- Illustrations: `src/illustrations.js`
-- Styles / animations: `src/assets/styles.css`, `src/assets/main.js`
+## ⚠️ Before going live
+1. **Clinic photos:** put them in `src/assets/clinic/` using the file names in `src/config.js → gallery`: `reception.jpg`, `treatment-suite.jpg`, `sterilisation.jpg`, `consultation.jpg`, `waiting-lounge.jpg`, `imaging.jpg`, `clinic-exterior.jpg`. Landscape works best, around 1600px wide. Until a photo is added, that tile shows an illustrated placeholder.
+2. **Details:** edit every `// TODO` in `src/config.js`: domain, phone, WhatsApp, street address and PIN, map query or coordinates, doctor's full name, qualifications and Dental Council registration number, and social links.
+3. Payment methods: `src/build.js`, search for `TODO: list payment methods`.
+4. Run `npm run build`.
 
 ## Build & preview
 ```bash
@@ -35,12 +32,10 @@ npm run images     # re-renders og-image.png & apple-touch-icon.png (needs Playw
 ```
 
 ## Deploy
-The finished site lives in `/docs`.
-- **GitHub Pages:** Settings → Pages → Deploy from branch → `main` / `docs`. Add your custom domain there.
-- **Netlify / Vercel / Cloudflare Pages:** publish directory `docs`, build command `npm run build`.
+The finished site is in `/docs`. To publish it:
+- **GitHub Pages:** Settings → Pages → branch `main`, folder `/docs`.
+- **Netlify, Vercel or Cloudflare Pages:** set the publish directory to `docs` and the build command to `npm run build`.
 
-After launch, submit `sitemap.xml` in Google Search Console and create/verify your **Google Business Profile** with the same name, address and phone as `config.js`. That is the most important local-SEO step.
-
-## Recommended next steps
-- Add real photos of the clinic, team and (with consent) before/after cases. Real photos build more trust than stock images.
-- Link your real Google reviews (`googleReviewsLink`).
+After launch:
+- Submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+- Keep the name, address, phone and hours identical on your Google Business Profile, Practo and Justdial.

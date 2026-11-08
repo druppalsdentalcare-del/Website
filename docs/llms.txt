@@ -1,12 +1,23 @@
-# Dr. Uppal's Dental Care
+# Dr. Uppal's Dental Hub & Implant Center
 
-> Dr. Uppal's Dental Care is a dental clinic in Your City, Your State, India, led by Dr. Uppal (BDS, MDS). It provides general, cosmetic, restorative, surgical, pediatric and orthodontic dentistry.
+> Private dental and implant clinic in New Delhi, Delhi, India, led by Dr. Uppal (BDS, MDS). Known for strict sterilisation (Class B autoclave, single-use disposables), seamless treatment under one roof, crowns delivered on the promised date, and 3D-planned dental implants.
 
-- Address: Clinic address line, Your City, Your State 000000
-- Phone / WhatsApp: +91 98765 43210
+- Address: [Street address, building], [Area / locality], New Delhi, Delhi 1100XX
+- Phone / WhatsApp: +91 00000 00000
 - Email: druppalsdentalcare@gmail.com
-- Hours: Monday – Saturday 10:00–20:00; Sunday By appointment
-- Book an appointment: https://www.druppalsdentalcare.com/book-appointment/
+- Hours: Monday to Saturday 10:00 am to 8:00 pm; Sunday By appointment
+- Areas served: New Delhi, South Delhi, Central Delhi, West Delhi, Gurugram, Noida
+- Book a consultation: https://www.druppalsdentalcare.com/book-consultation/
+
+## Why patients choose us
+- Sterilisation you can see: Every instrument is cleaned, sealed in a pouch and sterilised in a Class B autoclave — and the pouch is opened in front of you. Needles, gloves, bibs and suction tips are single-use, always. No exceptions, no shortcuts.
+- Seamless treatment, start to finish: Consultation, digital X-rays, 3D scans, treatment and aftercare are planned and delivered by one team under one roof. One clear plan, one point of contact — no running between labs and clinics.
+- Crowns delivered on time: Your crown fitting date is fixed the day your tooth is prepared, and we keep it. Precise impressions and an experienced dental lab mean a crown that fits first time — and a temporary crown means you are never without a tooth in between.
+- Implants planned in 3D: Each implant is planned on a 3D scan, so it is placed exactly where your bone and bite need it — safer surgery, more predictable results and teeth that feel like your own.
+- Appointments that respect your time: We run to schedule, send reminders, and book longer appointments with fewer patients per hour. You won’t be rushed in the chair or kept waiting outside it.
+- Costs in writing, before we begin: An itemised estimate with every option, timeline and cost explained in plain language. Nothing is started until you agree — and there are no surprises later.
+- Gentle, unhurried care: Effective anaesthesia, a gentle technique and breaks whenever you need them. Nervous patients are always welcome — tell us, and we’ll go at your pace.
+- Care that continues after treatment: Written aftercare, follow-up calls, reminders for check-ups and yearly implant reviews — because a beautiful result should also be a lasting one.
 
 ## Treatments
 - [Dental Check-up & Cleaning](https://www.druppalsdentalcare.com/treatments/dental-checkup-and-cleaning/): A dental check-up and professional cleaning (scaling and polishing) is a 30–45 minute visit, recommended every 6 months, that removes plaque and tartar, detects cavities and gum disease early, and is painless for most people.
@@ -26,14 +37,19 @@
 - [Braces (Metal & Ceramic)](https://www.druppalsdentalcare.com/treatments/braces/): Braces use brackets bonded to the teeth and a connecting wire to move teeth gradually into the correct position. Treatment typically takes 12–24 months with adjustments every 4–6 weeks. Options include metal, tooth-coloured ceramic and self-ligating braces, and they work at any age.
 - [Clear Aligners](https://www.druppalsdentalcare.com/treatments/clear-aligners/): Clear aligners are a series of custom, transparent, removable trays that gradually straighten teeth. They must be worn 20–22 hours a day, are changed every 1–2 weeks, and treatment typically takes 6–18 months. They are suitable for many mild to moderate cases of crowding, spacing and bite issues.
 
-## Key pages
-- [About the clinic and Dr. Uppal](https://www.druppalsdentalcare.com/about/)
-- [Patient FAQs](https://www.druppalsdentalcare.com/faq/)
-- [Contact & directions](https://www.druppalsdentalcare.com/contact/)
+## Pages
+- [About](https://www.druppalsdentalcare.com/about/)
+- [Patient guide](https://www.druppalsdentalcare.com/patient-guide/)
+- [FAQs](https://www.druppalsdentalcare.com/faq/)
+- [Gallery](https://www.druppalsdentalcare.com/gallery/)
+- [Contact](https://www.druppalsdentalcare.com/contact/)
 
 ## Frequently asked questions
 ### How do I book an appointment?
-Use the Book Appointment button on any page, call us, or message us on WhatsApp. Choose your treatment and preferred time and our team will confirm your slot.
+Use the Book a consultation button on any page, call us, or message us on WhatsApp. Choose your treatment and preferred time and our team will confirm your slot.
+
+### What happens at the first visit?
+We talk through your concerns, examine your teeth and gums, take X-rays or a 3D scan if needed, and explain your options with timelines and costs. Nothing is started without your agreement.
 
 ### What should I bring to my first visit?
 Bring a list of medicines you take, any previous dental X-rays or reports, and details of medical conditions such as diabetes, heart problems, pregnancy or allergies.
@@ -41,8 +57,8 @@ Bring a list of medicines you take, any previous dental X-rays or reports, and d
 ### Do you treat dental emergencies?
 Yes. We keep priority slots every day for severe toothache, swelling, broken or knocked-out teeth. Call or WhatsApp us and we'll see you as soon as possible.
 
-### Do you treat children?
-Yes — we see patients of all ages, from a baby's first dental visit to seniors needing dentures or implants.
+### Do you treat children and older patients?
+Yes. We see the whole family, from a child's first check-up to dentures and implants for older patients.
 
 ### I'm scared of the dentist. Can you help?
 Dental anxiety is very common and nothing to be embarrassed about. Tell us — we will explain each step, agree on a 'stop' signal, use effective numbing and take breaks whenever you need. Many anxious patients find that modern dentistry is far gentler than they expected.
@@ -55,6 +71,9 @@ Routine check-ups, cleanings and necessary treatment are safe and encouraged, id
 
 ### I have diabetes / heart disease / take blood thinners. Can I get treatment?
 Yes, with appropriate precautions. Tell us about your conditions and medicines. For some procedures we may coordinate with your physician — never stop blood thinners on your own.
+
+### How much do dental implants cost in Delhi?
+The cost depends on how many teeth are replaced, the implant system, whether bone grafting is needed and the type of crown. We give you a written, itemised estimate after your consultation and scan, before any treatment starts.
 
 ### How much will my treatment cost?
 Cost depends on the treatment, the number of teeth, materials chosen (for example zirconia vs metal-ceramic crowns, or implant brand) and case complexity. After your examination we give you a written treatment plan with transparent costs before starting anything.

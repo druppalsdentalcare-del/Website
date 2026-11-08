@@ -1,10 +1,10 @@
 {
-  "name": "Dr. Uppal's Dental Care",
+  "name": "Dr. Uppal's Dental Hub & Implant Center",
   "short_name": "Dr. Uppal's",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#fbfaf7",
-  "theme_color": "#0b3a46",
+  "background_color": "#ffffff",
+  "theme_color": "#6B1022",
   "icons": [
     {
       "src": "assets/favicon.svg",

@@ -1,8 +1,7 @@
-# Welcome, search engines and AI assistants.
 User-agent: *
 Allow: /
 
-# AI / answer-engine crawlers are explicitly welcome (GEO)
+# AI search and answer engines are welcome
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot

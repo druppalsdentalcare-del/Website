@@ -3,10 +3,11 @@ module.exports = [
   {
     group: "Visiting the clinic",
     items: [
-      { q: "How do I book an appointment?", a: "Use the Book Appointment button on any page, call us, or message us on WhatsApp. Choose your treatment and preferred time and our team will confirm your slot." },
+      { q: "How do I book an appointment?", a: "Use the Book a consultation button on any page, call us, or message us on WhatsApp. Choose your treatment and preferred time and our team will confirm your slot." },
+      { q: "What happens at the first visit?", a: "We talk through your concerns, examine your teeth and gums, take X-rays or a 3D scan if needed, and explain your options with timelines and costs. Nothing is started without your agreement." },
       { q: "What should I bring to my first visit?", a: "Bring a list of medicines you take, any previous dental X-rays or reports, and details of medical conditions such as diabetes, heart problems, pregnancy or allergies." },
       { q: "Do you treat dental emergencies?", a: "Yes. We keep priority slots every day for severe toothache, swelling, broken or knocked-out teeth. Call or WhatsApp us and we'll see you as soon as possible." },
-      { q: "Do you treat children?", a: "Yes — we see patients of all ages, from a baby's first dental visit to seniors needing dentures or implants." },
+      { q: "Do you treat children and older patients?", a: "Yes. We see the whole family, from a child's first check-up to dentures and implants for older patients." },
     ],
   },
   {
@@ -21,6 +22,7 @@ module.exports = [
   {
     group: "Costs & planning",
     items: [
+      { q: "How much do dental implants cost in Delhi?", a: "The cost depends on how many teeth are replaced, the implant system, whether bone grafting is needed and the type of crown. We give you a written, itemised estimate after your consultation and scan, before any treatment starts." },
       { q: "How much will my treatment cost?", a: "Cost depends on the treatment, the number of teeth, materials chosen (for example zirconia vs metal-ceramic crowns, or implant brand) and case complexity. After your examination we give you a written treatment plan with transparent costs before starting anything." },
       { q: "Do you offer EMI or payment plans?", a: "Ask our front desk about the payment options currently available for larger treatments such as implants, aligners and smile makeovers." },
       { q: "Does health insurance cover dental treatment?", a: "Most standard health insurance policies in India cover dental treatment only if it results from an accident or requires hospitalisation. Some policies and corporate plans include OPD dental cover — check your policy and we can provide the necessary bills and reports." },

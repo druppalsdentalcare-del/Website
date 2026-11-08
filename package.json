@@ -1,0 +1,11 @@
+{
+  "name": "druppals-dental-care-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website for Dr. Uppal's Dental Care",
+  "scripts": {
+    "build": "node src/build.js",
+    "images": "node scripts/make-images.js",
+    "serve": "python3 -m http.server 8080 -d docs"
+  }
+}

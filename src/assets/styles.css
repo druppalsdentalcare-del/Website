@@ -556,6 +556,41 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @keyframes aAlign { 0%, 100% { transform: scaleX(1.02); } 50% { transform: scaleX(.99); } }
 
 /* ---------------------------------------------- responsive */
+/* ---------- Prices, trust strip, doctor intro, local page ---------- */
+.trust-strip { padding-block: 36px 8px; }
+.proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.proof-card { display: flex; align-items: center; gap: 16px; padding: 20px 22px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line); color: var(--muted); font-size: .94rem; line-height: 1.5; transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s; }
+.proof-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--gold); color: var(--muted); }
+.proof-card > .i { flex: none; width: 48px; height: 48px; padding: 12px; border-radius: 14px; background: var(--ivory); color: var(--burgundy); border: 1px solid var(--line-2); }
+.proof-card strong { display: block; font-family: var(--serif); font-size: 1.12rem; color: var(--burgundy); }
+.p-big { flex: none; font-family: var(--serif); font-size: 2.2rem; line-height: 1; color: var(--burgundy); }
+.p-big small { font-size: .9rem; color: var(--muted); }
+.doc-stats { display: flex; flex-wrap: wrap; gap: 14px 34px; margin: 4px 0 22px; }
+.doc-stats strong { display: block; font-family: var(--serif); font-size: 2rem; line-height: 1.1; color: var(--burgundy); }
+.doc-stats span { font-size: .85rem; color: var(--muted); }
+.travel-note { display: flex; gap: 18px; padding: 28px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line-2); margin-bottom: 22px; }
+.travel-note > .i { flex: none; width: 48px; height: 48px; padding: 11px; border-radius: 14px; background: var(--ivory); color: var(--burgundy); }
+.travel-note p { color: var(--muted); }
+.price-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.price-table caption { text-align: left; font-family: var(--serif); font-size: 1.5rem; color: var(--burgundy); padding: 0 0 14px; }
+.price-table th, .price-table td { padding: 16px 22px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+.price-table thead th { border-top: 0; background: var(--ivory); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-d); }
+.price-table td a { color: var(--charcoal); font-weight: 700; }
+.price-table td a:hover { color: var(--burgundy); }
+.price-table td small { display: block; color: var(--muted); font-size: .86rem; }
+.price-table .amt { text-align: right; white-space: nowrap; }
+.price-table td.amt { font-family: var(--serif); font-size: 1.15rem; color: var(--burgundy); }
+.price-table .on-req { font-family: var(--sans); font-size: .86rem; color: var(--muted); }
+.split.top { align-items: start; }
+.sign-list.one { grid-template-columns: 1fr; }
+.area-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 820px; margin: 0 auto; }
+.area-chips li { padding: 9px 18px; border-radius: 99px; background: var(--white); border: 1px solid var(--line-2); font-weight: 700; font-size: .92rem; color: var(--charcoal); }
+@media (max-width: 620px) {
+  .price-table th, .price-table td { padding: 14px 14px; }
+  .travel-note { flex-direction: column; }
+  .proof-card { padding: 18px; }
+}
+
 @media (max-width: 1240px) {
   .nav-btn { padding: 7px 10px; font-size: .8rem; }
   .main-nav ul { gap: 4px; }

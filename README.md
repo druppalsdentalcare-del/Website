@@ -10,6 +10,8 @@ A fast static website built on the clinic's brand guide, with SEO and GEO (AI-se
 | Home: logo + shortcut buttons → intro → clinic photos → why patients choose us → location, map, call now & booking | `/` |
 | About | `/about/` |
 | Treatments (16 guides, each with procedure, aftercare & FAQs) | `/treatments/` |
+| Prices (starting prices, what an implant price includes) | `/prices/` |
+| Dentist in Pitampura (local page: directions, areas served) | `/dentist-in-pitampura/` |
 | Patient guide | `/patient-guide/` |
 | FAQs (searchable) | `/faq/` |
 | Gallery (with lightbox) | `/gallery/` |
@@ -20,9 +22,10 @@ A floating **Book a consultation** button stays on screen on every page.
 
 ## ⚠️ Before going live
 1. **Clinic photos:** put them in `src/assets/clinic/` using the file names in `src/config.js → gallery`: `reception.jpg`, `treatment-suite.jpg`, `sterilisation.jpg`, `consultation.jpg`, `waiting-lounge.jpg`, `imaging.jpg`, `clinic-exterior.jpg`. Landscape works best, around 1600px wide. Until a photo is added, that tile shows an illustrated placeholder.
-2. **Details:** edit every `// TODO` in `src/config.js`: domain, phone, WhatsApp, street address and PIN, map query or coordinates, doctor's full name, qualifications and Dental Council registration number, and social links.
-3. Payment methods: `src/build.js`, search for `TODO: list payment methods`.
-4. Run `npm run build`.
+2. **Details:** edit every `// TODO` in `src/config.js`: domain, phone, WhatsApp, street address, map query or coordinates, landmark and parking, doctor's full name, qualifications, Dental Council registration number, years in practice and implants placed, Google rating and review count, and social links.
+3. **Prices:** in `src/config.js → prices`, set each `from` to your starting price in rupees (for example `35000`), set `pricesUpdated`, and add your implant brand and warranty to `implantIncludes`. Until a price is set, the page shows "On consultation".
+4. Payment methods: `src/build.js`, search for `TODO: list payment methods`.
+5. Run `npm run build`.
 
 ## Build & preview
 ```bash

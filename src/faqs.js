@@ -22,8 +22,8 @@ module.exports = [
   {
     group: "Costs & planning",
     items: [
-      { q: "How much do dental implants cost in Delhi?", a: "The cost depends on how many teeth are replaced, the implant system, whether bone grafting is needed and the type of crown. We give you a written, itemised estimate after your consultation and scan, before any treatment starts." },
-      { q: "How much will my treatment cost?", a: "Cost depends on the treatment, the number of teeth, materials chosen (for example zirconia vs metal-ceramic crowns, or implant brand) and case complexity. After your examination we give you a written treatment plan with transparent costs before starting anything." },
+      { q: "How much do dental implants cost in Delhi?", a: "Our starting price for a single implant with a ceramic crown is on our Prices page. The final cost depends on how many teeth are replaced, the implant system, whether bone grafting is needed and the type of crown. We give you a written, itemised estimate after your consultation and scan, before any treatment starts." },
+      { q: "How much will my treatment cost?", a: "Cost depends on the treatment, the number of teeth, materials chosen (for example zirconia vs metal-ceramic crowns, or implant brand) and case complexity. Starting prices for every treatment are listed on our Prices page, and after your examination we give you a written treatment plan with transparent costs before starting anything." },
       { q: "Do you offer EMI or payment plans?", a: "Ask our front desk about the payment options currently available for larger treatments such as implants, aligners and smile makeovers." },
       { q: "Does health insurance cover dental treatment?", a: "Most standard health insurance policies in India cover dental treatment only if it results from an accident or requires hospitalisation. Some policies and corporate plans include OPD dental cover — check your policy and we can provide the necessary bills and reports." },
     ],

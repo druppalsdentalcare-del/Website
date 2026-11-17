@@ -9,6 +9,7 @@ module.exports = {
   name: "Dr. Uppal's Dental Hub & Implant Center",
   shortName: "Dr. Uppal's",
   tagline: "Dental · Implant · Smile",
+  localArea: "Pitampura, Delhi",       // shown in headings and page titles, e.g. "Dental Implants in Pitampura, Delhi"
   siteUrl: "https://druppalsdentalcare-del.github.io/Website", // TODO: change to your own domain once you have one (no trailing slash)
 
   doctor: {
@@ -16,6 +17,7 @@ module.exports = {
     qualifications: "BDS, MDS",        // TODO: exact degrees and specialisation
     title: "Founder & Lead Dentist",
     experienceYears: null,             // TODO: e.g. 15 — shown as a badge once filled in
+    implantsPlaced: null,              // TODO: e.g. 2000 — shown on the home page once filled in
     registration: "Dental Council registration no. [to be added]", // TODO
     bio: [
       "Dr. Uppal founded Dr. Uppal's Dental Hub & Implant Center to offer the kind of dentistry they would want for their own family: unhurried, honest and planned in detail. The clinical focus is dental implants and full-mouth rehabilitation, alongside cosmetic and general dentistry.",
@@ -29,16 +31,50 @@ module.exports = {
   email: "druppalsdentalcare@gmail.com",
 
   address: {
-    street: "[Street address, building], [Area / locality]", // TODO
-    locality: "New Delhi",
+    street: "[Building and street], Rani Bagh", // TODO: building and street
+    locality: "Pitampura, New Delhi",
     region: "Delhi",
-    postalCode: "1100XX",              // TODO
+    postalCode: "110034",
     country: "IN",
   },
-  areasServed: ["New Delhi", "South Delhi", "Central Delhi", "West Delhi", "Gurugram", "Noida"],
-  geo: { lat: 28.6139, lng: 77.209 },  // TODO: exact clinic coordinates
-  mapQuery: "Dr. Uppal's Dental Hub & Implant Center, New Delhi", // TODO: or your exact address
+  areasServed: ["Pitampura", "Rani Bagh", "Shalimar Bagh", "Netaji Subhash Place", "Ashok Vihar", "Punjabi Bagh", "Model Town", "Rohini"],
+  geo: null,                           // TODO: exact clinic coordinates once listed on Google Maps, e.g. { lat: 28.69, lng: 77.13 }
+  mapQuery: "Rani Bagh, Pitampura, New Delhi 110034", // TODO: your exact address or Google listing name
+  // Directions shown on the "Dentist in Pitampura" page (left blank = line hidden)
+  landmark: "",                        // TODO: e.g. "Opposite ..."
+  parking: "",                         // TODO: e.g. "Free parking in front of the clinic"
   googleReviewsLink: "",               // TODO: Google Business Profile reviews link
+  googleRating: null,                  // TODO: e.g. 4.9 — the rating box appears once this and the count are filled in
+  googleReviewCount: null,             // TODO: e.g. 120
+
+  /**
+   * STARTING PRICES — shown on /prices/ and on matching treatment pages.
+   * Leave `from` as null to show "Price on consultation". Use whole rupees, e.g. 35000.
+   * `slug` links a price to its treatment page.
+   */
+  pricesUpdated: "",                   // TODO: e.g. "November 2026" — shown on the price page
+  prices: [
+    { name: "Consultation and examination", note: "Includes a written treatment plan", from: null },
+    { name: "Digital X-ray (single tooth)", note: "", from: null },
+    { name: "3D CBCT scan", note: "Needed for most implant plans", from: null },
+    { name: "Scaling and polishing", note: "Both jaws", from: null, slug: "dental-checkup-and-cleaning" },
+    { name: "Tooth-coloured filling", note: "Per tooth", from: null, slug: "tooth-fillings" },
+    { name: "Root canal treatment", note: "Per tooth, crown priced separately", from: null, slug: "root-canal-treatment" },
+    { name: "Ceramic (zirconia) crown", note: "Per tooth", from: null, slug: "dental-crowns-and-bridges" },
+    { name: "Single dental implant with ceramic crown", note: "Implant, abutment and crown", from: null, slug: "dental-implants" },
+    { name: "Full-arch fixed teeth (All-on-4 or All-on-6)", note: "Per jaw, including temporary teeth", from: null, slug: "full-mouth-rehabilitation" },
+    { name: "Bone graft or sinus lift", note: "Only if your scan shows it is needed", from: null },
+    { name: "Professional teeth whitening", note: "In-clinic session", from: null, slug: "teeth-whitening" },
+    { name: "Porcelain veneer", note: "Per tooth", from: null, slug: "dental-veneers" },
+    { name: "Braces", note: "Full course", from: null, slug: "braces" },
+    { name: "Clear aligners", note: "Full course", from: null, slug: "clear-aligners" },
+  ],
+  implantIncludes: [
+    "The implant, its abutment and a custom ceramic crown",
+    "Placement under local anaesthesia, planned on a 3D scan",
+    "Follow-up checks while the implant heals",
+    // TODO: add the implant system/brand and your warranty, e.g. "Osstem implant with a 5-year warranty"
+  ],
 
   // days: 0 = Sunday … 6 = Saturday. Used for the live "Open now" badge.
   hours: [
@@ -58,7 +94,7 @@ module.exports = {
     { file: "consultation.jpg", caption: "Consultation room", note: "Time to talk through your plan", art: "consult" },
     { file: "waiting-lounge.jpg", caption: "Waiting lounge", note: "Relax before your visit", art: "lounge" },
     { file: "imaging.jpg", caption: "Digital imaging", note: "Low-dose digital X-rays & scans", art: "xray", size: "wide" },
-    { file: "clinic-exterior.jpg", caption: "Our clinic", note: "Easy to find in New Delhi", art: "exterior", size: "wide" },
+    { file: "clinic-exterior.jpg", caption: "Our clinic", note: "Easy to find in Rani Bagh, Pitampura", art: "exterior", size: "wide" },
   ],
 
   social: {
@@ -68,5 +104,5 @@ module.exports = {
     googleBusiness: "",
   },
   priceRange: "₹₹",
-  lastUpdated: "2026-11-08",
+  lastUpdated: "2026-11-17",
 };

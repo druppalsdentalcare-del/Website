@@ -1,13 +1,15 @@
 # Dr. Uppal's Dental Hub & Implant Center
 
-> Private dental and implant clinic in New Delhi, Delhi, India, led by Dr. Uppal (BDS, MDS). Known for strict sterilisation (Class B autoclave, single-use disposables), seamless treatment under one roof, crowns delivered on the promised date, and 3D-planned dental implants.
+> Private dental and implant clinic in Pitampura, Delhi, Delhi, India, led by Dr. Uppal (BDS, MDS). Known for strict sterilisation (Class B autoclave, single-use disposables), seamless treatment under one roof, crowns delivered on the promised date, and 3D-planned dental implants.
 
-- Address: [Street address, building], [Area / locality], New Delhi, Delhi 1100XX
+- Address: [Building and street], Rani Bagh, Pitampura, New Delhi, Delhi 110034
 - Phone / WhatsApp: +91 00000 00000
 - Email: druppalsdentalcare@gmail.com
 - Hours: Monday to Saturday 10:00 am to 8:00 pm; Sunday By appointment
-- Areas served: New Delhi, South Delhi, Central Delhi, West Delhi, Gurugram, Noida
+- Areas served: Pitampura, Rani Bagh, Shalimar Bagh, Netaji Subhash Place, Ashok Vihar, Punjabi Bagh, Model Town, Rohini
 - Book a consultation: https://druppalsdentalcare-del.github.io/Website/book-consultation/
+- Prices: https://druppalsdentalcare-del.github.io/Website/prices/
+- First opinion: send an X-ray on WhatsApp (+91 00000 00000)
 
 ## Why patients choose us
 - Sterilisation you can see: Every instrument is cleaned, sealed in a pouch and sterilised in a Class B autoclave — and the pouch is opened in front of you. Needles, gloves, bibs and suction tips are single-use, always. No exceptions, no shortcuts.
@@ -15,7 +17,7 @@
 - Crowns delivered on time: Your crown fitting date is fixed the day your tooth is prepared, and we keep it. Precise impressions and an experienced dental lab mean a crown that fits first time — and a temporary crown means you are never without a tooth in between.
 - Implants planned in 3D: Each implant is planned on a 3D scan, so it is placed exactly where your bone and bite need it — safer surgery, more predictable results and teeth that feel like your own.
 - Appointments that respect your time: We run to schedule, send reminders, and book longer appointments with fewer patients per hour. You won’t be rushed in the chair or kept waiting outside it.
-- Costs in writing, before we begin: An itemised estimate with every option, timeline and cost explained in plain language. Nothing is started until you agree — and there are no surprises later.
+- Clear prices, in writing: Starting prices for every treatment are published on our website. After your examination you get an itemised estimate with every option, timeline and cost explained in plain language. Nothing is started until you agree — and there are no surprises later.
 - Gentle, unhurried care: Effective anaesthesia, a gentle technique and breaks whenever you need them. Nervous patients are always welcome — tell us, and we’ll go at your pace.
 - Care that continues after treatment: Written aftercare, follow-up calls, reminders for check-ups and yearly implant reviews — because a beautiful result should also be a lasting one.
 
@@ -37,8 +39,26 @@
 - [Braces (Metal & Ceramic)](https://druppalsdentalcare-del.github.io/Website/treatments/braces/): Braces use brackets bonded to the teeth and a connecting wire to move teeth gradually into the correct position. Treatment typically takes 12–24 months with adjustments every 4–6 weeks. Options include metal, tooth-coloured ceramic and self-ligating braces, and they work at any age.
 - [Clear Aligners](https://druppalsdentalcare-del.github.io/Website/treatments/clear-aligners/): Clear aligners are a series of custom, transparent, removable trays that gradually straighten teeth. They must be worn 20–22 hours a day, are changed every 1–2 weeks, and treatment typically takes 6–18 months. They are suitable for many mild to moderate cases of crowding, spacing and bite issues.
 
+## Starting prices
+- Consultation and examination: on consultation
+- Digital X-ray (single tooth): on consultation
+- 3D CBCT scan: on consultation
+- Scaling and polishing: on consultation
+- Tooth-coloured filling: on consultation
+- Root canal treatment: on consultation
+- Ceramic (zirconia) crown: on consultation
+- Single dental implant with ceramic crown: on consultation
+- Full-arch fixed teeth (All-on-4 or All-on-6): on consultation
+- Bone graft or sinus lift: on consultation
+- Professional teeth whitening: on consultation
+- Porcelain veneer: on consultation
+- Braces: on consultation
+- Clear aligners: on consultation
+
 ## Pages
 - [About](https://druppalsdentalcare-del.github.io/Website/about/)
+- [Prices](https://druppalsdentalcare-del.github.io/Website/prices/)
+- [Dentist in Pitampura, Delhi](https://druppalsdentalcare-del.github.io/Website/dentist-in-pitampura/)
 - [Patient guide](https://druppalsdentalcare-del.github.io/Website/patient-guide/)
 - [FAQs](https://druppalsdentalcare-del.github.io/Website/faq/)
 - [Gallery](https://druppalsdentalcare-del.github.io/Website/gallery/)
@@ -73,10 +93,10 @@ Routine check-ups, cleanings and necessary treatment are safe and encouraged, id
 Yes, with appropriate precautions. Tell us about your conditions and medicines. For some procedures we may coordinate with your physician — never stop blood thinners on your own.
 
 ### How much do dental implants cost in Delhi?
-The cost depends on how many teeth are replaced, the implant system, whether bone grafting is needed and the type of crown. We give you a written, itemised estimate after your consultation and scan, before any treatment starts.
+Our starting price for a single implant with a ceramic crown is on our Prices page. The final cost depends on how many teeth are replaced, the implant system, whether bone grafting is needed and the type of crown. We give you a written, itemised estimate after your consultation and scan, before any treatment starts.
 
 ### How much will my treatment cost?
-Cost depends on the treatment, the number of teeth, materials chosen (for example zirconia vs metal-ceramic crowns, or implant brand) and case complexity. After your examination we give you a written treatment plan with transparent costs before starting anything.
+Cost depends on the treatment, the number of teeth, materials chosen (for example zirconia vs metal-ceramic crowns, or implant brand) and case complexity. Starting prices for every treatment are listed on our Prices page, and after your examination we give you a written treatment plan with transparent costs before starting anything.
 
 ### Do you offer EMI or payment plans?
 Ask our front desk about the payment options currently available for larger treatments such as implants, aligners and smile makeovers.

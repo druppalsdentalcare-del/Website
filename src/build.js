@@ -17,7 +17,7 @@ const YEAR = new Date().getFullYear();
 /* ---------------------------------------------------------- helpers */
 const esc = (s = "") => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const url = (p) => C.siteUrl + "/" + p.replace(/^\/+/, "");
-const city = C.address.locality;
+const city = C.localArea || C.address.locality;
 const addressLine = `${C.address.street}, ${C.address.locality}, ${C.address.region} ${C.address.postalCode}`;
 const byCat = T.reduce((m, t) => ((m[t.category] = m[t.category] || []).push(t), m), {});
 const CATS = Object.keys(byCat);
@@ -27,6 +27,12 @@ const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 const wa = (text) => `https://wa.me/${C.whatsapp}${text ? "?text=" + encodeURIComponent(text) : ""}`;
 const plain = (n) => n.replace(/\s*\(.*\)/, "");
 const BOOK = "book-consultation/";
+const PRICES = "prices/";
+const LOCAL = "dentist-in-pitampura/";
+const inr = (n) => "₹" + Number(n).toLocaleString("en-IN");
+const priceFor = (slug) => (C.prices || []).find((x) => x.slug === slug && x.from);
+const hasRating = C.googleRating && C.googleReviewCount;
+const xrayMsg = "Hello, I found you on your website. I'd like a first opinion on my dental X-ray.";
 
 const write = (rel, html) => {
   const file = path.join(OUT, rel);
@@ -97,9 +103,9 @@ const clinicSchema = () => ({
   email: C.email,
   priceRange: C.priceRange,
   address: { "@type": "PostalAddress", streetAddress: C.address.street, addressLocality: C.address.locality, addressRegion: C.address.region, postalCode: C.address.postalCode, addressCountry: C.address.country },
-  geo: { "@type": "GeoCoordinates", latitude: C.geo.lat, longitude: C.geo.lng },
+  ...(C.geo ? { geo: { "@type": "GeoCoordinates", latitude: C.geo.lat, longitude: C.geo.lng } } : {}),
   hasMap: mapLink,
-  areaServed: C.areasServed.map((a) => ({ "@type": "City", name: a })),
+  areaServed: C.areasServed.map((a) => ({ "@type": "Place", name: a })),
   openingHoursSpecification: C.hours.filter((h) => h.schema.length).map((h) => ({ "@type": "OpeningHoursSpecification", dayOfWeek: h.schema, opens: h.open, closes: h.close })),
   sameAs: Object.values(C.social).filter(Boolean),
   medicalSpecialty: "Dentistry",
@@ -130,7 +136,7 @@ const faqSchema = (list) => ({
 });
 
 /* ---------------------------------------------------------- layout */
-const NAV = [["About", "about/"], ["Treatments", "treatments/"], ["Patient guide", "patient-guide/"], ["FAQs", "faq/"], ["Gallery", "gallery/"], ["Contact us", "contact/"]];
+const NAV = [["About", "about/"], ["Treatments", "treatments/"], ["Prices", PRICES], ["Patient guide", "patient-guide/"], ["FAQs", "faq/"], ["Gallery", "gallery/"], ["Contact us", "contact/"]];
 const hoursText = (h) => h.label;
 
 function layout({ title, description, pathname, depth = 0, body, schema = [], bodyClass = "", ogType = "website" }) {
@@ -152,8 +158,8 @@ function layout({ title, description, pathname, depth = 0, body, schema = [], bo
 <meta name="theme-color" content="#6B1022">
 <meta name="geo.region" content="IN-DL">
 <meta name="geo.placename" content="${esc(city)}">
-<meta name="geo.position" content="${C.geo.lat};${C.geo.lng}">
-<meta name="ICBM" content="${C.geo.lat}, ${C.geo.lng}">
+${C.geo ? `<meta name="geo.position" content="${C.geo.lat};${C.geo.lng}">
+<meta name="ICBM" content="${C.geo.lat}, ${C.geo.lng}">` : ""}
 <meta property="og:type" content="${ogType}">
 <meta property="og:site_name" content="${esc(C.name)}">
 <meta property="og:title" content="${esc(title)}">
@@ -197,7 +203,7 @@ ${schema.map(ld).join("\n")}
     <nav aria-label="Mobile">
       <a style="--i:0" href="${rel}">Home</a>
       ${NAV.map(([n, p], i) => `<a style="--i:${i + 1}" href="${rel}${p}">${n}</a>`).join("")}
-      <a style="--i:7" class="btn btn-primary" href="${rel}${BOOK}">${icon("calendar")} Book a consultation</a>
+      <a style="--i:${NAV.length + 1}" class="btn btn-primary" href="${rel}${BOOK}">${icon("calendar")} Book a consultation</a>
     </nav>
   </div>
 </header>
@@ -212,7 +218,7 @@ ${body}
       <div class="socials">${Object.entries(C.social).filter(([, v]) => v).map(([k, v]) => `<a href="${v}" target="_blank" rel="noopener">${k}</a>`).join("")}</div>
     </div>
     <div><h3>Explore</h3><ul>
-      ${NAV.map(([n, p]) => `<li><a href="${rel}${p}">${n}</a></li>`).join("")}<li><a href="${rel}${BOOK}">Book a consultation</a></li></ul></div>
+      ${NAV.map(([n, p]) => `<li><a href="${rel}${p}">${n}</a></li>`).join("")}<li><a href="${rel}${LOCAL}">Dentist in Pitampura</a></li><li><a href="${rel}${BOOK}">Book a consultation</a></li></ul></div>
     <div><h3>Treatments</h3><ul>
       ${["dental-implants", "full-mouth-rehabilitation", "smile-makeover", "teeth-whitening", "root-canal-treatment", "dental-crowns-and-bridges", "clear-aligners"].map((s) => T.find((t) => t.slug === s)).map((t) => `<li><a href="${rel}treatments/${t.slug}/">${esc(t.name)}</a></li>`).join("")}</ul></div>
     <div><h3>Visit</h3>
@@ -230,7 +236,7 @@ ${body}
   </div>
 </footer>
 <div class="fab" aria-label="Quick actions">
-  <a class="fab-mini fab-wa" href="${wa("Hello, I'd like to book a consultation.")}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon("whatsapp")}</a>
+  <a class="fab-mini fab-wa" href="${wa("Hello, I found you on your website and would like to book a consultation.")}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${icon("whatsapp")}</a>
   <a class="fab-mini fab-call" href="tel:${C.phoneRaw}" aria-label="Call the clinic">${icon("phone")}</a>
   <a class="fab-book" href="${rel}${BOOK}" data-magnetic>${icon("calendar")}<span>Book a consultation</span></a>
 </div>
@@ -279,6 +285,37 @@ function breadcrumbs(rel, items) {
   return `<nav class="crumbs" aria-label="Breadcrumb" data-reveal><ol>${items.map(([n, p], i) => (i === items.length - 1 ? `<li aria-current="page">${esc(n)}</li>` : `<li><a href="${rel}${p}">${esc(n)}</a></li>`)).join("")}</ol></nav>`;
 }
 
+/* Trust strip: Google rating, published prices, X-ray first opinion */
+const trustStrip = (rel) => `<section class="section trust-strip"><div class="wrap proof">
+  ${hasRating ? `<a class="proof-card" href="${C.googleReviewsLink || mapLink}" target="_blank" rel="noopener" data-reveal><span class="p-big">${C.googleRating}<small>/5</small></span><span><strong>On Google</strong>From ${C.googleReviewCount} patient reviews. Read them on Google.</span></a>` : ""}
+  <a class="proof-card" href="${rel}${PRICES}" data-reveal style="--d:90ms">${icon("doc")}<span><strong>Prices published</strong>Starting prices for every treatment, and what each one includes.</span></a>
+  <a class="proof-card" href="${wa(xrayMsg)}" target="_blank" rel="noopener" data-reveal style="--d:180ms">${icon("whatsapp")}<span><strong>X-ray on WhatsApp</strong>Send your X-ray or a photo and get a first opinion before you visit.</span></a>
+</div></section>`;
+
+/* Meet the dentist — shown on the home page */
+const doctorIntro = (rel) => `<section class="section tint">
+  <div class="wrap split">
+    ${doctorCard()}
+    <div data-reveal style="--d:120ms">
+      <span class="eyebrow">Meet your dentist</span>
+      <h2>${esc(C.doctor.name)}, <em>${esc(C.doctor.qualifications)}</em></h2>
+      <span class="rule" aria-hidden="true"></span>
+      <ul class="doc-stats">
+        ${C.doctor.experienceYears ? `<li><strong>${C.doctor.experienceYears}+</strong><span>years in practice</span></li>` : ""}
+        ${C.doctor.implantsPlaced ? `<li><strong>${Number(C.doctor.implantsPlaced).toLocaleString("en-IN")}+</strong><span>implants placed</span></li>` : ""}
+        <li><strong>1</strong><span>dentist with you from start to finish</span></li>
+      </ul>
+      <p>${esc(C.doctor.name)} plans every implant on a 3D scan, explains each option in plain language and treats you personally, from the first consultation to the final check-up.</p>
+      <p class="muted small">${esc(C.doctor.registration)}</p>
+      <a class="btn btn-outline" href="${rel}about/">About ${esc(C.doctor.name)} ${icon("arrow")}</a>
+    </div>
+  </div>
+</section>`;
+
+/* For implant and smile cases, patients often travel */
+const TRAVEL = ["dental-implants", "full-mouth-rehabilitation", "smile-makeover", "dental-veneers"];
+const travelBlock = () => `<div class="travel-note" data-reveal>${icon("route")}<div><h3>Coming from outside Delhi?</h3><p>Send your X-ray or CBCT scan on WhatsApp before you travel. ${esc(C.doctor.name)} will reply with a first opinion and a written estimate, so you know the plan, the number of visits and the cost before you book.</p><a class="btn btn-outline btn-sm" href="${wa(xrayMsg)}" target="_blank" rel="noopener">${icon("whatsapp")} Send your X-ray</a></div></div>`;
+
 /* "Why patients choose us" — the clinic's promises */
 const REASONS = [
   ["shield", "Sterilisation you can see", "Every instrument is cleaned, sealed in a pouch and sterilised in a Class B autoclave — and the pouch is opened in front of you. Needles, gloves, bibs and suction tips are single-use, always. No exceptions, no shortcuts."],
@@ -286,7 +323,7 @@ const REASONS = [
   ["crown", "Crowns delivered on time", "Your crown fitting date is fixed the day your tooth is prepared, and we keep it. Precise impressions and an experienced dental lab mean a crown that fits first time — and a temporary crown means you are never without a tooth in between."],
   ["scan", "Implants planned in 3D", "Each implant is planned on a 3D scan, so it is placed exactly where your bone and bite need it — safer surgery, more predictable results and teeth that feel like your own."],
   ["timer", "Appointments that respect your time", "We run to schedule, send reminders, and book longer appointments with fewer patients per hour. You won’t be rushed in the chair or kept waiting outside it."],
-  ["doc", "Costs in writing, before we begin", "An itemised estimate with every option, timeline and cost explained in plain language. Nothing is started until you agree — and there are no surprises later."],
+  ["doc", "Clear prices, in writing", "Starting prices for every treatment are published on our website. After your examination you get an itemised estimate with every option, timeline and cost explained in plain language. Nothing is started until you agree — and there are no surprises later."],
   ["heart", "Gentle, unhurried care", "Effective anaesthesia, a gentle technique and breaks whenever you need them. Nervous patients are always welcome — tell us, and we’ll go at your pace."],
   ["repeat", "Care that continues after treatment", "Written aftercare, follow-up calls, reminders for check-ups and yearly implant reviews — because a beautiful result should also be a lasting one."],
 ];
@@ -296,7 +333,7 @@ function locationBlock(rel, headingTag = "h2") {
   const opts = `<option value="">Not sure yet — general consultation</option>${CATS.map((c) => `<optgroup label="${esc(c)}">${byCat[c].map((t) => `<option value="${t.slug}">${esc(t.name)}</option>`).join("")}</optgroup>`).join("")}`;
   return `<section class="section location" id="visit">
   <div class="wrap">
-    ${heading("Visit · Call · Book", `Find us in <em>${esc(city)}</em>`, `Patients visit us from ${C.areasServed.join(", ")}.`)}
+    ${heading("Visit · Call · Book", `Find us in <em>${esc(city)}</em>`, `Patients visit us from ${C.areasServed.join(", ")}. <a href="${rel}${LOCAL}">How to reach us</a>`)}
     <div class="loc-grid">
       <div class="loc-card" data-reveal>
         <div class="open-badge" data-hours='${JSON.stringify(C.hours.map((h) => ({ d: h.dayNums, o: h.open, c: h.close })))}'><span class="dot"></span><span class="txt">Opening hours</span></div>
@@ -358,6 +395,8 @@ function home() {
   <a class="scroll-cue" href="#clinic" aria-label="Scroll to see our clinic"><span></span></a>
 </section>
 
+${trustStrip(rel)}
+
 <div class="marquee" aria-hidden="true"><div class="marquee-track">${[...T, ...T].map((t) => `<span><i class="gem"></i> ${esc(t.name)}</span>`).join("")}</div></div>
 
 <section class="section" id="clinic">
@@ -371,6 +410,8 @@ function home() {
     <div class="center mt-lg" data-reveal><a class="btn btn-outline" href="${rel}gallery/">View full gallery ${icon("arrow")}</a></div>
   </div>
 </section>
+
+${doctorIntro(rel)}
 
 <section class="section why">
   <div class="why-bg" aria-hidden="true"></div>
@@ -393,7 +434,7 @@ ${locationBlock(rel)}
 `;
   return layout({
     title: `Dentist in ${city} | Dental Implants, Smile Design & Family Dentistry | ${C.shortName}`,
-    description: `${C.name}, ${city}: gentle, precise dental and implant care. Hospital-grade sterilisation, seamless treatment, crowns delivered on time. Book a consultation today.`,
+    description: `${C.name}, Rani Bagh, ${city}: gentle, precise dental and implant care with published starting prices, hospital-grade sterilisation and crowns delivered on time. Book a consultation today.`,
     pathname: "",
     body,
     bodyClass: "home",
@@ -514,7 +555,8 @@ function treatmentPage(t) {
       <section id="benefits" data-reveal><h2>Benefits</h2><div class="benefits">${t.benefits.map((b) => `<div>${icon("spark")}<span>${esc(b)}</span></div>`).join("")}</div></section>
       <section id="aftercare" data-reveal><h2>Recovery &amp; aftercare</h2><ul class="sign-list care">${t.aftercare.map((s) => `<li>${icon("heart")} ${esc(s)}</li>`).join("")}</ul></section>
       <section id="faqs"><h2 data-reveal>${esc(plain(t.name))}: frequently asked questions</h2><div class="faqs" data-reveal>${faqList(t.faqs, true)}</div></section>
-      <div class="cost-note" data-reveal>${icon("doc")}<div><h3>How much does it cost?</h3><p>The cost of ${esc(t.name.toLowerCase())} depends on your diagnosis, the number of teeth involved and the materials chosen. After your examination you’ll receive a clear, itemised estimate before treatment starts. <a href="${rel}${BOOK}?treatment=${t.slug}">Book a consultation</a> to get your personalised plan.</p></div></div>
+      ${TRAVEL.includes(t.slug) ? travelBlock() : ""}
+      <div class="cost-note" data-reveal>${icon("doc")}<div><h3>How much does it cost?</h3><p>${priceFor(t.slug) ? `At our clinic, ${esc(priceFor(t.slug).name.toLowerCase())} starts from <strong>${inr(priceFor(t.slug).from)}</strong>. ` : ""}The final cost of ${esc(t.name.toLowerCase())} depends on your diagnosis, the number of teeth involved and the materials chosen. After your examination you’ll receive a clear, itemised estimate before treatment starts. <a href="${rel}${PRICES}">See our price list</a> or <a href="${rel}${BOOK}?treatment=${t.slug}">book a consultation</a> for your personalised plan.</p></div></div>
     </article>
   </div>
 </section>
@@ -552,6 +594,7 @@ function patientGuide() {
   const body = `
 ${pageHero(rel, [["Home", ""], ["Patient guide", "patient-guide/"]], "Patient guide", `What to expect, <em>every step of the way</em>`, "Before, during and after your visit — so you can walk in feeling informed, calm and in control.")}
 <section class="section pt-0">
+  <div class="wrap"><p class="reviewed">${icon("shield")} Written and reviewed by <a href="${rel}about/#doctor">${esc(C.doctor.name)}, ${esc(C.doctor.qualifications)}</a> · Updated <time datetime="${C.lastUpdated}">${new Date(C.lastUpdated).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</time></p></div>
   <div class="wrap">
     <ol class="guide">${stages.map(([i, h, items], n) => `<li class="g-stage" data-reveal style="--d:${n * 90}ms">
       <div class="g-head"><span class="g-num">${String(n + 1).padStart(2, "0")}</span><span class="r-icon">${icon(i)}</span><h2>${h}</h2></div>
@@ -560,7 +603,7 @@ ${pageHero(rel, [["Home", ""], ["Patient guide", "patient-guide/"]], "Patient gu
 </section>
 <section class="section tint">
   <div class="wrap guide-cards">
-    <div class="side-card" data-reveal><h3>${icon("doc")} Payment</h3><p>We share an itemised estimate before treatment, so you know the full cost up front. Ask our front desk about accepted payment methods. <!-- TODO: list payment methods, e.g. UPI, cards, cash, EMI --></p><p>Ask us about staged payments for longer treatment plans.</p></div>
+    <div class="side-card" data-reveal><h3>${icon("doc")} Payment</h3><p>We share an itemised estimate before treatment, so you know the full cost up front. Ask our front desk about accepted payment methods. <!-- TODO: list payment methods, e.g. UPI, cards, cash, EMI --></p><p>Ask us about staged payments for longer treatment plans. <a href="${rel}${PRICES}">See our starting prices</a>.</p></div>
     <div class="side-card" data-reveal style="--d:90ms"><h3>${icon("shield")} Insurance</h3><p>Most health policies cover dental treatment only after an accident or when hospitalisation is needed. If your policy or employer includes OPD dental cover, we provide the bills and reports you need.</p></div>
     <div class="side-card highlight" data-reveal style="--d:180ms"><h3>${icon("phone")} Need help after hours?</h3><p>Message us on WhatsApp at ${esc(C.phone)}. For a medical emergency, go to the nearest hospital.</p><a class="btn btn-gold btn-block" href="${wa()}" target="_blank" rel="noopener">${icon("whatsapp")} WhatsApp us</a></div>
   </div>
@@ -643,7 +686,7 @@ ${pageHero(rel, [["Home", ""], ["Contact us", "contact/"]], "Contact us", `We’
 <section class="section pt-0">
   <div class="wrap contact-cards">
     <a class="c-card" href="tel:${C.phoneRaw}" data-reveal>${icon("phone")}<h2>Call now</h2><p>${esc(C.phone)}</p></a>
-    <a class="c-card" href="${wa()}" target="_blank" rel="noopener" data-reveal style="--d:90ms">${icon("whatsapp")}<h2>WhatsApp</h2><p>Chat with our team</p></a>
+    <a class="c-card" href="${wa()}" target="_blank" rel="noopener" data-reveal style="--d:90ms">${icon("whatsapp")}<h2>WhatsApp</h2><p>Chat, or send an X-ray for a first opinion</p></a>
     <a class="c-card" href="mailto:${C.email}" data-reveal style="--d:180ms">${icon("mail")}<h2>Email</h2><p>${esc(C.email)}</p></a>
     <a class="c-card" href="${mapLink}" target="_blank" rel="noopener" data-reveal style="--d:270ms">${icon("pin")}<h2>Directions</h2><p>${esc(city)}</p></a>
   </div>
@@ -682,6 +725,7 @@ ${pageHero(rel, [["Home", ""], ["Book a consultation", BOOK]], "Book a consultat
     </form>
     <aside class="book-side" data-reveal style="--d:120ms">
       <div class="side-card highlight"><h2>Prefer to talk?</h2><p>Call us and our front desk will find the best time for you.</p><a class="btn btn-gold btn-block" href="tel:${C.phoneRaw}">${icon("phone")} Call now</a></div>
+      <div class="side-card"><h3>${icon("whatsapp")} Send your X-ray first</h3><p>Have an X-ray or scan? Send it on WhatsApp and get a first opinion before you visit.</p><a href="${wa(xrayMsg)}" target="_blank" rel="noopener">Send on WhatsApp →</a></div>
       <div class="side-card"><h3>${icon("clock")} Opening hours</h3>${C.hours.map((h) => `<p><strong>${esc(h.days)}</strong><br>${esc(hoursText(h))}</p>`).join("")}</div>
       <div class="side-card"><h3>${icon("pin")} Where we are</h3><p>${esc(addressLine)}</p><a href="${mapLink}" target="_blank" rel="noopener">Get directions →</a></div>
     </aside>
@@ -695,6 +739,115 @@ ${pageHero(rel, [["Home", ""], ["Book a consultation", BOOK]], "Book a consultat
   });
 }
 
+function pricesPage() {
+  const rel = "../";
+  const costFaqs = FAQS.find((g) => g.group === "Costs & planning").items;
+  const updated = C.pricesUpdated ? ` · Prices updated ${esc(C.pricesUpdated)}` : "";
+  const body = `
+${pageHero(rel, [["Home", ""], ["Prices", PRICES]], "Prices", `Dental treatment prices <em>in ${esc(city)}</em>`, `Starting prices at ${esc(C.name)}, what each one includes, and what can change your final cost. Price is the second question most patients ask, so we answer it up front.`)}
+<section class="section pt-0">
+  <div class="wrap narrow">
+    <p class="reviewed">${icon("shield")} Written and reviewed by <a href="${rel}about/#doctor">${esc(C.doctor.name)}, ${esc(C.doctor.qualifications)}</a>${updated}</p>
+    <table class="price-table" data-reveal>
+      <caption>Starting prices</caption>
+      <thead><tr><th scope="col">Treatment</th><th scope="col" class="amt">From</th></tr></thead>
+      <tbody>${C.prices.map((x) => `<tr><td>${x.slug ? `<a href="${rel}treatments/${x.slug}/">${esc(x.name)}</a>` : esc(x.name)}${x.note ? `<small>${esc(x.note)}</small>` : ""}</td><td class="amt">${x.from ? inr(x.from) : '<span class="on-req">On consultation</span>'}</td></tr>`).join("")}</tbody>
+    </table>
+    <p class="muted small mt">Your exact cost depends on your examination and is written on your treatment plan before anything begins.</p>
+  </div>
+</section>
+<section class="section tint">
+  <div class="wrap split top">
+    <div data-reveal>
+      <span class="eyebrow">Dental implants</span>
+      <h2>What a single implant <em>price includes</em></h2>
+      <span class="rule" aria-hidden="true"></span>
+      <ul class="sign-list one">${C.implantIncludes.map((x) => `<li>${icon("check")} ${esc(x)}</li>`).join("")}</ul>
+    </div>
+    <div data-reveal style="--d:120ms">
+      <span class="eyebrow">Planning your budget</span>
+      <h2>What can change <em>the final cost</em></h2>
+      <span class="rule" aria-hidden="true"></span>
+      <ul class="sign-list one">${["How many teeth are treated or replaced", "Whether bone grafting or a sinus lift is needed", "The implant system and crown material you choose", "Whether you need temporary teeth while you heal"].map((x) => `<li>${icon("check")} ${esc(x)}</li>`).join("")}</ul>
+      <p class="mt">Ask us about staged payments for longer treatment plans.</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap split faq-split">
+    <div data-reveal><span class="eyebrow">Costs &amp; planning</span><h2>Price <em>questions</em></h2><span class="rule" aria-hidden="true"></span><p>Have an X-ray already? Send it on WhatsApp and we’ll give you a first opinion and an estimate before you visit.</p><a class="btn btn-outline" href="${wa(xrayMsg)}" target="_blank" rel="noopener">${icon("whatsapp")} Send your X-ray</a></div>
+    <div class="faqs" data-reveal style="--d:120ms">${faqList(costFaqs, true)}</div>
+  </div>
+</section>
+${ctaBand(rel, "Get your personalised estimate", "A consultation includes an examination, X-rays or a scan when needed, and a written plan with every cost before anything begins.")}`;
+  return layout({
+    title: `Dental Treatment Prices in ${city} — Implants, RCT, Crowns | ${C.shortName}`,
+    description: `Starting prices at ${C.name}, Rani Bagh, ${city}: dental implants, full-arch teeth, root canal, crowns, whitening, veneers, braces and aligners, with what each price includes.`,
+    pathname: PRICES, depth: 1, body,
+    schema: [
+      { "@context": "https://schema.org", "@type": "MedicalWebPage", name: `Dental treatment prices — ${C.name}`, url: url(PRICES), inLanguage: "en-IN", lastReviewed: C.lastUpdated, reviewedBy: { "@id": url("about/#doctor") }, publisher: { "@id": url("#clinic") }, about: { "@id": url("#clinic") } },
+      faqSchema(costFaqs), crumbs([["Home", ""], ["Prices", PRICES]]),
+    ],
+  });
+}
+
+function localPage() {
+  const rel = "../";
+  const popular = ["dental-implants", "root-canal-treatment", "dental-crowns-and-bridges", "smile-makeover", "clear-aligners", "dental-checkup-and-cleaning"].map((s) => T.find((t) => t.slug === s)).filter(Boolean);
+  const reach = [
+    ["pin", "Address", addressLine],
+    ...(C.landmark ? [["route", "Landmark", C.landmark]] : []),
+    ...(C.parking ? [["shield", "Parking", C.parking]] : []),
+    ["clock", "Opening hours", C.hours.map((h) => `${h.days}: ${h.label}`).join(" · ")],
+  ];
+  const localFaqs = [
+    { q: "Where is the clinic?", a: `${C.name} is in Rani Bagh, Pitampura, North West Delhi ${C.address.postalCode}, a short drive from Shalimar Bagh, Netaji Subhash Place, Ashok Vihar and Punjabi Bagh.` },
+    { q: "Do you see patients from nearby areas?", a: `Yes. Patients visit us from ${C.areasServed.join(", ")}.` },
+    { q: "Can I get an opinion before I visit?", a: "Yes. Send your X-ray or a photo of your teeth on WhatsApp and you will get a first opinion before your appointment." },
+  ];
+  const body = `
+${pageHero(rel, [["Home", ""], ["Dentist in Pitampura", LOCAL]], "Our clinic in Rani Bagh", `Dentist in <em>Pitampura, Delhi</em>`, `${esc(C.name)} is a private dental and implant clinic in Rani Bagh, Pitampura, a short drive from Shalimar Bagh, Netaji Subhash Place, Ashok Vihar and Punjabi Bagh. One dentist sees you from your first consultation to your final check-up.`)}
+<section class="section pt-0">
+  <div class="wrap split top">
+    <div data-reveal>
+      <h2>How to <em>reach us</em></h2>
+      <span class="rule" aria-hidden="true"></span>
+      <ul class="info-list">${reach.map(([i, h, v]) => `<li>${icon(i)}<div><strong>${h}</strong><span>${esc(v)}</span></div></li>`).join("")}</ul>
+      <div class="btn-group"><a class="btn btn-primary" href="${mapLink}" target="_blank" rel="noopener">${icon("pin")} Get directions</a><a class="btn btn-outline" href="tel:${C.phoneRaw}">${icon("phone")} Call now</a></div>
+    </div>
+    <div class="map-wrap" data-reveal style="--d:120ms">
+      <div class="map"><iframe title="Google map showing ${esc(C.name)}" src="${mapEmbed}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+<section class="section tint">
+  <div class="wrap">
+    ${heading("Close to home", "Patients come to us <em>from</em>", "Whether you need a check-up, a root canal or a full set of implant teeth, you can be seen close to home by the same dentist every visit.")}
+    <ul class="area-chips" data-reveal>${C.areasServed.map((a) => `<li>${esc(a)}</li>`).join("")}</ul>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    ${heading("Popular treatments", "What patients in Pitampura <em>come to us for</em>", "")}
+    <div class="t-grid three">${popular.map((t, i) => card(t, rel, i)).join("")}</div>
+    <div class="center mt-lg" data-reveal><a class="btn btn-outline" href="${rel}${PRICES}">See our prices ${icon("arrow")}</a></div>
+  </div>
+</section>
+<section class="section tint">
+  <div class="wrap split faq-split">
+    <div data-reveal><span class="eyebrow">Visiting us</span><h2>Questions about <em>getting here</em></h2><span class="rule" aria-hidden="true"></span></div>
+    <div class="faqs" data-reveal style="--d:120ms">${faqList(localFaqs, true)}</div>
+  </div>
+</section>
+${ctaBand(rel)}`;
+  return layout({
+    title: `Dentist in Pitampura, Delhi | Dental Clinic in Rani Bagh | ${C.shortName}`,
+    description: `Dental and implant clinic in Rani Bagh, Pitampura, Delhi ${C.address.postalCode}: address, opening hours, directions, popular treatments and prices. Serving ${C.areasServed.slice(0, 6).join(", ")}.`,
+    pathname: LOCAL, depth: 1, body,
+    schema: [faqSchema(localFaqs), crumbs([["Home", ""], ["Dentist in Pitampura", LOCAL]])],
+  });
+}
+
 function notFound() {
   return layout({
     title: `Page not found | ${C.name}`,
@@ -705,7 +858,7 @@ function notFound() {
 }
 
 /* ---------------------------------------------------------- SEO / GEO files */
-const PAGES = ["", "about/", "treatments/", ...T.map((t) => `treatments/${t.slug}/`), "patient-guide/", "faq/", "gallery/", "contact/", BOOK];
+const PAGES = ["", "about/", "treatments/", ...T.map((t) => `treatments/${t.slug}/`), PRICES, LOCAL, "patient-guide/", "faq/", "gallery/", "contact/", BOOK];
 const sitemap = () => `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${PAGES.map((p) => `  <url><loc>${url(p)}</loc><lastmod>${C.lastUpdated}</lastmod><priority>${p === "" ? "1.0" : p.startsWith("treatments/") ? "0.9" : "0.7"}</priority></url>`).join("\n")}
@@ -730,6 +883,8 @@ const llms = () => `# ${C.name}
 - Hours: ${C.hours.map((h) => `${h.days} ${h.label}`).join("; ")}
 - Areas served: ${C.areasServed.join(", ")}
 - Book a consultation: ${url(BOOK)}
+- Prices: ${url(PRICES)}
+- First opinion: send an X-ray on WhatsApp (${C.phone})
 
 ## Why patients choose us
 ${REASONS.map(([, h, p]) => `- ${h}: ${p}`).join("\n")}
@@ -737,8 +892,13 @@ ${REASONS.map(([, h, p]) => `- ${h}: ${p}`).join("\n")}
 ## Treatments
 ${T.map((t) => `- [${t.name}](${url(`treatments/${t.slug}/`)}): ${t.summary}`).join("\n")}
 
+## Starting prices
+${C.prices.map((x) => `- ${x.name}: ${x.from ? "from " + inr(x.from) : "on consultation"}`).join("\n")}
+
 ## Pages
 - [About](${url("about/")})
+- [Prices](${url(PRICES)})
+- [Dentist in Pitampura, Delhi](${url(LOCAL)})
 - [Patient guide](${url("patient-guide/")})
 - [FAQs](${url("faq/")})
 - [Gallery](${url("gallery/")})
@@ -764,6 +924,8 @@ write("index.html", home());
 write("about/index.html", about());
 write("treatments/index.html", treatmentsHub());
 T.forEach((t) => write(`treatments/${t.slug}/index.html`, treatmentPage(t)));
+write(`${PRICES}index.html`, pricesPage());
+write(`${LOCAL}index.html`, localPage());
 write("patient-guide/index.html", patientGuide());
 write("faq/index.html", faqPage());
 write("gallery/index.html", galleryPage());
